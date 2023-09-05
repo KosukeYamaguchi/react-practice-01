@@ -1,63 +1,70 @@
-import './App.css';
-import {useForm} from 'react-hook-form';
+import { Stack, TextField, Button } from '@mui/material'
+import { useForm, SubmitHandler, Controller } from 'react-hook-form'
 
-function App(){
-  type FormInputs = {
-    email:string,
-    password:string
-  }
-
-  const {register, handleSubmit, formState: {errors },watch} = useForm<FormInputs>({
-    criteriaMode: 'all',
-  });
-
-  const onSubmit = (data: any) => console.log(data);
-
-
-  return (
-    <div className='App'>
-      <h1>ログイン</h1>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div>
-          <label htmlFor="email">Email</label>
-          <input 
-            id='email'
-            {...register('email',{required: '入力が必須の項目です。'})}
-          />
-          {errors.email && <div>{errors.email.message}</div>}
-        </div>
-        <div>{watch('email')}</div>
-
-        <div>
-          <label htmlFor="password">パスワード</label>
-          <input 
-            id='password'
-            {...register('password',{
-              required: {
-                value: true,
-                message: '入力が必須の項目です。',
-              },
-              pattern: {
-                value: /^[A-Za-z]+$/,
-                message: 'アルファベットのみ入力してください',
-              },
-              minLength: {
-                value: 8,
-                message: '8文字以上入力してください。',
-              },
-            })}
-            type='password'
-          />
-          {errors.password?.types?.required && <div>{errors.password.types.required}</div>}
-          {errors.password?.types?.pattern && <div>{errors.password.types.pattern}</div>}
-          {errors.password?.types?.minLength && <div>{errors.password.types.minLength}</div>}
-        </div>
-        <div>
-          <button type='submit' >ログイン</button>
-        </div>
-      </form>
-    </div>
-  )
+// 1. 入力値の定義を作成します。
+ type Inputs = {
+  name: string
  }
 
- export default App;
+function App() {
+  // 2. useFormで必要な関数を取得し、デフォルト値を指定します。
+  const {
+    control,
+    handleSubmit,
+  } = useForm<Inputs>({
+    defaultValues: { name: '初期値です' }
+  })
+
+  // 3. 検証ルールを指定します。
+  const validationRules = {
+    name: {
+      required: '名前を入力してください。',
+      minLength: { value: 4, message: '4文字以上で入力してください。' }
+    }
+  }
+  
+  // 4. サブミット時の処理を作成します。
+  // 検証が成功すると呼び出され、引数で入力値が渡ってきます。
+  const onSubmit: SubmitHandler<Inputs> = (data: Inputs) => {
+    console.log(`submit: ${data.name}`)
+  }
+
+  return (
+  // {/* 5. form要素のonSubmitに1.で取得しているhandleSubmitを指定します */}
+    <Stack component="form" noValidate 
+    onSubmit={handleSubmit(onSubmit)} 
+    spacing={2} sx={{ m: 2, width: '25ch' }}>
+
+       {/* 6.Controllerコンポーネントで TextFieldをReactHookFormと紐づけます。 */}
+      <Controller
+        // registerと同様の意味（<input {  ...register("email")} />  と書いていた  )
+        name="name"
+
+        //useFormで取得したcontrolを渡す。決まりごととして覚えておく
+        control={control}
+
+        //バリデーションプロパティが入ったオブジェクトを渡す。
+        rules={validationRules.name}
+
+        //renderには関数を指定する。
+        //引数のfieldにはcontrolで指定したpropsの値が入っている
+        //引数の
+
+        render={({ field, fieldState }) => (
+          <TextField
+            {...field}
+            type="text"
+            label="名前"
+            error={fieldState.invalid}
+            helperText={fieldState.error?.message}
+          />
+        )}
+      />
+      <Button variant="contained" type="submit" >
+        送信する
+      </Button>
+    </Stack>
+  )
+}
+
+export default App;
