@@ -7,11 +7,9 @@ function App(){
     password:string
   }
 
-  const {register, handleSubmit, formState: { errors }} = useForm<FormInputs>({
+  const {register, handleSubmit, formState: { errors }, trigger} = useForm<FormInputs>({
     criteriaMode: 'all',
     defaultValues: {email: 'test@test.com', password: 'pass'},
-    mode: 'onSubmit',
-    reValidateMode: 'onSubmit'
   });
 
   const onSubmit = (data: any) => console.log(data);
@@ -55,6 +53,7 @@ function App(){
         </div>
         <div>
           <button type='submit'>ログイン</button>
+          <button type='button' onClick={() => trigger('email')}>バリデーション</button>
         </div>
       </form>
     </div>
