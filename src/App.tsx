@@ -7,7 +7,10 @@ function App(){
     password:string
   }
 
-  const {register, handleSubmit, formState: { errors }} = useForm<FormInputs>({criteriaMode: 'all'});
+  const {register, handleSubmit, formState: { errors }} = useForm<FormInputs>({
+    criteriaMode: 'all',
+    defaultValues: {email: 'test@test.com', password: 'pass'}
+  });
 
   const onSubmit = (data: any) => console.log(data);
 
