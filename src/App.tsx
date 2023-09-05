@@ -7,7 +7,7 @@ function App(){
     password:string
   }
 
-  const {register, handleSubmit, formState: { isDirty, isValid, errors }} = useForm<FormInputs>({
+  const {register, handleSubmit, formState: {errors },getValues} = useForm<FormInputs>({
     criteriaMode: 'all',
   });
 
@@ -26,6 +26,8 @@ function App(){
           />
           {errors.email && <div>{errors.email.message}</div>}
         </div>
+        <div>{getValues('email')}</div>
+
         <div>
           <label htmlFor="password">パスワード</label>
           <input 
@@ -51,7 +53,7 @@ function App(){
           {errors.password?.types?.minLength && <div>{errors.password.types.minLength}</div>}
         </div>
         <div>
-          <button type='submit' disabled={!isDirty || !isValid}>ログイン</button>
+          <button type='submit' >ログイン</button>
         </div>
       </form>
     </div>
