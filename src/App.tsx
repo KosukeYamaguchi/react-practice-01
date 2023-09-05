@@ -1,26 +1,42 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import {useForm} from 'react-hook-form';
 
-function App() {
+function App(){
+  const {register, handleSubmit} = useForm();
+
+  const onSubmit = (data: any) => console.log(data);
+
+  const {name, ref, onChange, onBlur} = register('email');
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+      <h1>ログイン</h1>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div>
+          <label htmlFor="email">Email</label>
+          <input 
+            id='email'
+            // {...register('email')}
+            name={name}
+            onChange={onChange}
+            onBlur={onBlur}
+            ref={ref}
+          />
+        </div>
+        <div>
+          <label htmlFor="password">パスワード</label>
+          <input 
+            id='password'
+            {...register('password')}
+            type='password'
+          />
+        </div>
+        <div>
+          <button type='submit'>ログイン</button>
+        </div>
+      </form>
     </div>
-  );
-}
+  )
+ }
 
-export default App;
+ export default App;
