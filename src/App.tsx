@@ -7,7 +7,7 @@ function App(){
     password:string
   }
 
-  const {register, handleSubmit, formState: { isDirty, errors }} = useForm<FormInputs>({
+  const {register, handleSubmit, formState: { dirtyFields, errors }} = useForm<FormInputs>({
     criteriaMode: 'all',
   });
 
@@ -51,7 +51,7 @@ function App(){
           {errors.password?.types?.minLength && <div>{errors.password.types.minLength}</div>}
         </div>
         <div>
-          <button type='submit' disabled={!isDirty}>ログイン</button>
+          <button type='submit' disabled={!dirtyFields.email}>ログイン</button>
         </div>
       </form>
     </div>
