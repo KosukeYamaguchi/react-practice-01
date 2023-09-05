@@ -7,9 +7,8 @@ function App(){
     password:string
   }
 
-  const {register, handleSubmit, formState: { errors }, trigger} = useForm<FormInputs>({
+  const {register, handleSubmit, formState: { isDirty, errors }} = useForm<FormInputs>({
     criteriaMode: 'all',
-    defaultValues: {email: 'test@test.com', password: 'pass'},
   });
 
   const onSubmit = (data: any) => console.log(data);
@@ -52,8 +51,7 @@ function App(){
           {errors.password?.types?.minLength && <div>{errors.password.types.minLength}</div>}
         </div>
         <div>
-          <button type='submit'>ログイン</button>
-          <button type='button' onClick={() => trigger('email')}>バリデーション</button>
+          <button type='submit' disabled={!isDirty}>ログイン</button>
         </div>
       </form>
     </div>
