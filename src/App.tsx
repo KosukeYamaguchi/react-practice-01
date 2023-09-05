@@ -7,7 +7,7 @@ function App(){
     password:string
   }
 
-  const {register, handleSubmit, formState: {errors },getValues} = useForm<FormInputs>({
+  const {register, handleSubmit, formState: {errors },watch} = useForm<FormInputs>({
     criteriaMode: 'all',
   });
 
@@ -26,7 +26,7 @@ function App(){
           />
           {errors.email && <div>{errors.email.message}</div>}
         </div>
-        <div>{getValues('email')}</div>
+        <div>{watch('email')}</div>
 
         <div>
           <label htmlFor="password">パスワード</label>
