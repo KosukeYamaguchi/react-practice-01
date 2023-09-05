@@ -10,7 +10,8 @@ function App(){
   const {register, handleSubmit, formState: { errors }} = useForm<FormInputs>({
     criteriaMode: 'all',
     defaultValues: {email: 'test@test.com', password: 'pass'},
-    mode: 'onBlur',
+    mode: 'onSubmit',
+    reValidateMode: 'onSubmit'
   });
 
   const onSubmit = (data: any) => console.log(data);
