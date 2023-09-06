@@ -7,7 +7,7 @@ const fetchUsers = async () => {
 };
 
 function User() {
-    const {data,isLoading,isError,error,status} = useQuery('users', fetchUsers, {refetchInterval: 1000});
+    const {data,isLoading,isError,error,status} = useQuery('users', fetchUsers, {cacheTime: 5000});
 
     console.log(status);
 

@@ -1,6 +1,7 @@
 import { QueryClient, QueryClientProvider } from 'react-query';
 import User from './components/User';
 import { useState} from 'react';
+import {ReactQueryDevtools} from 'react-query/devtools';
 
 const queryClient = new QueryClient();
 
@@ -15,6 +16,7 @@ function App() {
         <h1>ユーザ情報</h1>
         {show && <User />}
       </div>
+      <ReactQueryDevtools initialIsOpen={false}/>
     </QueryClientProvider>
   );
 }
