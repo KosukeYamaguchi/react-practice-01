@@ -2,12 +2,12 @@ import { error } from 'console';
 import { useQuery } from 'react-query';
 
 const fetchUsers = async () => {
-  const res = await fetch('https://jsonplaceholder.typicode.co');
+  const res = await fetch('https://jsonplaceholder.typicode.com/users');
   return res.json();
 };
 
 function User() {
-    const {data,isLoading,isError,error} = useQuery('users', fetchUsers,{retry:5,});
+    const {data,isLoading,isError,error} = useQuery('users', fetchUsers,{refetchOnWindowFocus: false});
 
     if(isLoading) {
         return <span>Loading...</span>;
