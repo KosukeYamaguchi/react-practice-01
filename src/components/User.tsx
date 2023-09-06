@@ -6,13 +6,17 @@ const fetchUsers = async () => {
 };
 
 function User() {
-    const {data} = useQuery('users', fetchUsers);
+    const {data,isLoading} = useQuery('users', fetchUsers);
+
+    if(isLoading) {
+        return <span>Loading...</span>;
+    }
 
     return (
     <div>
         <h2>ユーザ一覧</h2>
         <div>
-        {data?.map((user:{id: number,name: string}) => (
+        {data.map((user:{id: number,name: string}) => (
             <div key={user.id}>{user.name}</div>
         ))}
         </div>
