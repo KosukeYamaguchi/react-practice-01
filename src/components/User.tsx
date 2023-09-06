@@ -7,7 +7,9 @@ const fetchUsers = async () => {
 };
 
 function User() {
-    const {data,isLoading,isError,error} = useQuery('users', fetchUsers,{refetchOnWindowFocus: false});
+    const {data,isLoading,isError,error,status} = useQuery('users', fetchUsers, {cacheTime: 1000});
+
+    console.log(status);
 
     if(isLoading) {
         return <span>Loading...</span>;
