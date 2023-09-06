@@ -7,7 +7,7 @@ const fetchUsers = async () => {
 };
 
 function User() {
-    const {data,isLoading,isError,error} = useQuery('users', fetchUsers);
+    const {data,isLoading,isError,error} = useQuery('users', fetchUsers,{retry:5,});
 
     if(isLoading) {
         return <span>Loading...</span>;
