@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useQuery } from 'react-query';
 
 const fetchUsers = async () => {
   const res = await fetch('https://jsonplaceholder.typicode.com/users');
@@ -6,24 +6,18 @@ const fetchUsers = async () => {
 };
 
 function User() {
-  const [users, setUsers] = useState([]);
+    const {data} = useQuery('users', fetchUsers);
 
-  useEffect(() => {
-    fetchUsers().then((data) => {
-      setUsers(data);
-    });
-  }, []);
-
-  return (
+    return (
     <div>
-      <h2>ユーザ一覧</h2>
-      <div>
-        {users.map((user:{id: number,name: string}) => (
-          <div key={user.id}>{user.name}</div>
+        <h2>ユーザ一覧</h2>
+        <div>
+        {data?.map((user:{id: number,name: string}) => (
+            <div key={user.id}>{user.name}</div>
         ))}
-      </div>
+        </div>
     </div>
-  );
+    );
 }
 
 export default User;
