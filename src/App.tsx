@@ -50,6 +50,7 @@ function App() {
             <RadioGroup 
               aria-labelledby="radio-buttons-group-label" 
                value={field.value} name="gender">
+                {/* ここではラジオボタンの各要素が値を持つので、それぞれに{...field}を渡してあげる　*/}
                <FormControlLabel {...field} value={1} control={<Radio />} label="男性" />
                <FormControlLabel {...field} value={2} control={<Radio />} label="女性" />
                <FormControlLabel {...field} value={0} control={<Radio />} label="未回答" />
