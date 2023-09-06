@@ -61,9 +61,9 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 
 コールバック関数・・・高階関数に渡すための関数（上記でいうhello()の部分）
 
-ジェネリクス・・・型も引数のように扱うもの（<T>）
+ジェネリクス・・・型も引数のように扱うもの（＜T＞）
 
-※例 function chooseRandom<T>(v1: T, v2: T): T {
+※例 function chooseRandom＜T＞(v1: T, v2: T): T {
         return Math.random() <= 0.5 ? v1 : v2;
     }
 
